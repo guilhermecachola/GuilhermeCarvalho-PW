@@ -23,7 +23,7 @@ Após explorar as APIs da Lusófona, o modelo foi expandido para incluir campos 
 
 ### Entidade: UnidadeCurricular (UC)
 1.  **Justificação 1:** Criação do campo `codigo` (ReadableCode da API) como chave de sincronização para evitar a criação de duplicados ao importar dados externos.
-2.  **Justificação 2:** Separação dos campos `objetivos` e `conteudos` para manter a estrutura fiel à ficha de unidade curricular (FUC) oficial.
+2.  **Justificação 2:** Separação dos campos `objetivos` e `conteudos` para manter a estrutura fiel à ficha de unidade curricular (.
 
 ### Entidade: Projeto
 1.  **Justificação 1:** Relacionamento `Muitos-para-Muitos` com `Tecnologia`, permitindo filtrar projetos por linguagens de programação ou frameworks (ex: todos os projetos feitos em Python).
