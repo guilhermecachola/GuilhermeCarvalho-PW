@@ -36,7 +36,7 @@ class Tecnologia(models.Model):
     logo = models.ImageField(upload_to='tecnologias/', blank=True)
     link_oficial = models.URLField()
     descricao = models.TextField()
-    nivel_interesse = models.IntegerField(help_text="Escala de 1 (baixo) a 5 (alto)")
+    nivel_interesse = models.IntegerField(help_text="Escala de 1 a 5")
 
     def __str__(self):
         return self.nome
