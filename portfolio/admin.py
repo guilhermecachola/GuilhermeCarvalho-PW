@@ -30,3 +30,13 @@ class UnidadeCurricular(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Tecnologia(models.Model):
+    nome = models.CharField(max_length=50)
+    logo = models.ImageField(upload_to='tecnologias/', blank=True)
+    link_oficial = models.URLField()
+    descricao = models.TextField()
+    nivel_interesse = models.IntegerField(help_text="Escala de 1 (baixo) a 5 (alto)")
+
+    def __str__(self):
+        return self.nome
