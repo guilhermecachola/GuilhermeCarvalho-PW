@@ -53,3 +53,13 @@ class Projeto(models.Model):
 
     def __str__(self):
         return self.nome
+
+class TFC(models.Model):
+    titulo = models.CharField(max_length=200)
+    autores = models.CharField(max_length=200)
+    ano = models.IntegerField()
+    resumo = models.TextField()
+    destaque = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.titulo
