@@ -71,3 +71,16 @@ class Competencia(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Formacao(models.Model):
+    titulo = models.CharField(max_length=100)
+    instituicao = models.CharField(max_length=100)
+    data_inicio = models.DateField()
+    data_fim = models.DateField(null=True, blank=True)
+    descricao = models.TextField()
+
+    class Meta:
+        ordering = ['-data_inicio']
+
+    def __str__(self):
+        return self.titulo
