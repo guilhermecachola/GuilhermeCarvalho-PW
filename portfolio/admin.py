@@ -86,7 +86,7 @@ class Formacao(models.Model):
         return self.titulo
 
 class MakingOf(models.Model):
-    etapa = models.CharField(max_length=100) # Ex: "Modelação da Entidade Projeto"
+    etapa = models.CharField(max_length=100) 
     data = models.DateField(auto_now_add=True)
     descricao = models.TextField(help_text="Decisões e justificações")
     erros_encontrados = models.TextField(blank=True)
