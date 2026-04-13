@@ -22,9 +22,9 @@ class ProjetoAdmin(admin.ModelAdmin):
 # Configuração para TFC (Crucial para validar a importação do JSON)
 @admin.register(TFC)
 class TFCAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'orientadores', 'ano', 'rating')
-    list_filter = ('ano', 'rating')
-    search_fields = ('titulo', 'resumo', 'orientadores')
+    list_display = ('titulo', 'autores', 'ano', 'destaque')
+    list_filter = ('ano', 'destaque')
+    search_fields = ('titulo', 'resumo', 'autores')
 
 # Configuração para Tecnologias
 @admin.register(Tecnologia)
