@@ -29,11 +29,11 @@ def carregar_tfcs():
             
             TFC.objects.create(
                 titulo=item.get('titulo'),
-                orientadores=item.get('orientador'),
+                
                 resumo=item.get('resumo'),
-                link_pdf=item.get('pdf'),
-                imagem_url=item.get('imagem'),
-                rating=item.get('rating', 0),
+                
+                
+                
                 ano=2025 
             )
             print(f"Importado com sucesso: {item.get('titulo')}")
