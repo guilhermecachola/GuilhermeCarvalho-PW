@@ -40,3 +40,16 @@ class Tecnologia(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Projeto(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+    conceitos_aplicados = models.TextField()
+    tecnologias = models.ManyToManyField(Tecnologia, related_name='projetos')
+    imagem = models.ImageField(upload_to='projetos/', blank=True)
+    video_demo = models.URLField(blank=True)
+    github_link = models.URLField()
+    unidade_curricular = models.ForeignKey(UnidadeCurricular, on_delete=models.CASCADE, related_name='projetos')
+
+    def __str__(self):
+        return self.nome
