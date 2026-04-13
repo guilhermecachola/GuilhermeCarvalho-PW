@@ -84,3 +84,15 @@ class Formacao(models.Model):
 
     def __str__(self):
         return self.titulo
+
+class MakingOf(models.Model):
+    etapa = models.CharField(max_length=100) # Ex: "Modelação da Entidade Projeto"
+    data = models.DateField(auto_now_add=True)
+    descricao = models.TextField(help_text="Decisões e justificações")
+    erros_encontrados = models.TextField(blank=True)
+    solucoes = models.TextField(blank=True)
+    foto_caderno = models.ImageField(upload_to='makingof/', blank=True)
+    uso_ia = models.TextField(blank=True, help_text="Como a IA ajudou nesta etapa")
+
+    def __str__(self):
+        return f"{self.etapa} - {self.data}"
