@@ -1,3 +1,13 @@
-from django.shortcuts import render
+##  ficheiro escola/views.py
 
-# Create your views here.
+from django.shortcuts import render
+from .models import Curso
+
+def cursos_view(request):
+
+    cursos = Curso.objects
+               .select_related('professor')
+               .prefetch_related('alunos')
+               .all()
+    
+    return render(request, 'escola/cursos.html', {'cursos': cursos})
