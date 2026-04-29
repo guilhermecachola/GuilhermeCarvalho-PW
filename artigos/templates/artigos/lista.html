@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Artigos Tecnológicos</title>
+    <style>
+        .artigo-card { background: #2a2a2a; color: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; border-left: 5px solid #d14a96; }
+        .btn-like { cursor: pointer; background: none; border: 1px solid #d14a96; color: white; padding: 5px 10px; border-radius: 4px; }
+        .comentario { background: #333; padding: 10px; margin-top: 5px; font-size: 0.9em; }
+    </style>
+</head>
+<body style="background: #1a1a1a; color: #eee; font-family: sans-serif; padding: 50px;">
+
+    <h1>Blog de Tecnologia & Soft-Skills</h1>
+    <a href="{% url 'portfolio:tecnologias' %}" style="color: #00d4ff;">← Voltar ao Portfólio</a>
+    <hr>
+
+    {% for artigo in artigos %}
+        <div class="artigo-card">
+            <h2>{{ artigo.titulo }}</h2>
+            <p><small>Publicado por <b>{{ artigo.autor.username }}</b> em {{ artigo.data_criacao }}</small></p>
+            
+            <p>{{ artigo.conteudo }}</p>
+
+            {% if user == artigo.autor %}
+                <a href="#" style="color: yellow;">[Editar o meu artigo]</a>
+            {% endif %}
+
+            <div style="margin-top: 15px;">
+                <a href="{% url 'artigos:like' artigo.id %}" class="btn-like">
+                    👍 {{ artigo.likes.count }} Likes
+                </a>
+            </div>
+
+            <h4>Comentários</h4>
+            {% for c in artigo.comentarios.all %}
+                <div class="comentario">
+                    <b>{{ c.autor.username }}:</b> {{ c.texto }}
+                </div>
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'artigos:comentar' artigo.id %}" style="margin-top:10px;">
+                    {% csrf_token %}
+                    <input type="text" name="texto" placeholder="Escreva um comentário..." style="width: 80%;">
+                    <button type="submit">Enviar</button>
+                </form>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Ainda não há artigos publicados.</p>
+    {% endfor %}
+
+</body>
+</html>

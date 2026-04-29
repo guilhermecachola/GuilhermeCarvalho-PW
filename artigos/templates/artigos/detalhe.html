@@ -1,0 +1,38 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<h1>{{ artigo.titulo }}</h1>
+<p>Por: {{ artigo.autor.username }} em {{ artigo.data_criacao }}</p>
+
+{% if artigo.imagem %}
+    <img src="{{ artigo.imagem.url }}" style="max-width: 100%;">
+{% endif %}
+
+<div class="conteudo">{{ artigo.conteudo }}</div>
+
+<hr>
+<h3>Likes: {{ artigo.total_likes }}</h3>
+<a href="{% url 'artigos:like' artigo.id %}" class="btn">👍 Gostar</a>
+
+<hr>
+<h3>Comentários</h3>
+{% for c in artigo.comentarios.all %}
+    <div class="comentario">
+        <strong>{{ c.autor.username }}</strong>: {{ c.texto }}
+        <small>({{ c.data }})</small>
+    </div>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'artigos:comentar' artigo.id %}">
+        {% csrf_token %}
+        <textarea name="texto" required></textarea>
+        <button type="submit">Enviar Comentário</button>
+    </form>
+{% endif %}
+
+{% if user == artigo.autor %}
+    <a href="{% url 'artigos:editar' artigo.id %}" class="btn">Editar Meu Artigo</a>
+{% endif %}
+
+{% endblock %}

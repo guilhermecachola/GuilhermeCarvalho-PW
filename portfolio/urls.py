@@ -1,4 +1,5 @@
 urlpatterns = [
+    path('', views.tecnologias_view, name='home'),
     # Tecnologias
     path('tecnologias/', views.tecnologias_view, name='tecnologias'),
     path('tecnologia/nova/', views.nova_tecnologia, name='nova_tecnologia'),
