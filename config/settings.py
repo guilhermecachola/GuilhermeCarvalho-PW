@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'portfolio',
     'escola',
     'accounts',
+    'cloudinary',
+    'cloudinary_storage',
+    'artigos',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -117,15 +121,62 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
+
 
 import os
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')   
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'portfolio:home'  
 LOGOUT_REDIRECT_URL = 'portfolio:home' 
+
+## em settings.py
+
+import environ
+import os
+
+# inicializar environ
+env = environ.Env()
+
+# ler ficheiro .env (opcional mas recomendado)
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+## definicao da base de dados psql em Neon
+DATABASES = {
+    "default": env.db("DATABASE_URL")
+}
+
+## settings.py
+
+import environ
+import os
+
+# já foi feita a importação para as var. de ambiente da BD
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+
+     "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}

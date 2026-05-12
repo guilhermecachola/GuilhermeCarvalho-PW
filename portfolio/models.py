@@ -54,7 +54,7 @@ class TipoTecnologia(models.Model):
 
 class Tecnologia(models.Model):
     nome = models.CharField(max_length=50)
-    tipo = models.ForeignKey(TipoTecnologia, on_delete=models.CASCADE, related_name='tecnologias')
+    tipo = models.ForeignKey(TipoTecnologia, on_delete=models.CASCADE, related_name='tecnologias', null=True, blank=True)    
     logo = models.ImageField(upload_to='tecnologias/', blank=True)
     descricao = models.TextField(help_text="O que faz e o que permite")
     opiniao = models.TextField(help_text="O que gostei ou não", blank=True)
