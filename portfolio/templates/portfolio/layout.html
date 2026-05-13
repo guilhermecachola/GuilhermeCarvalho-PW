@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Inter", sans-serif; background: #0f172a; color: #e2e8f0; }
+        header { background: #1e293b; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 22px; color: #38bdf8; }
+        nav a { color: #94a3b8; margin-left: 20px; text-decoration: none; font-size: 14px; }
+        nav a:hover { color: white; }
+        main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        h2 { font-size: 26px; margin-bottom: 24px; color: #f1f5f9; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        .card h3 { font-size: 18px; color: #38bdf8; margin-bottom: 8px; }
+        .card p { color: #94a3b8; font-size: 14px; }
+        .btn { display: inline-block; padding: 8px 16px; border-radius: 8px; font-size: 13px; text-decoration: none; margin-top: 10px; margin-right: 6px; cursor: pointer; border: none; }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-edit { background: #0284c7; color: white; }
+        .btn-delete { background: #dc2626; color: white; }
+        footer { text-align: center; padding: 20px; color: #475569; font-size: 13px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Portfólio</h1>
+        <nav>
+    <a href="{% url 'portfolio:tecnologias' %}">Tecnologias</a>
+    <a href="{% url 'portfolio:competencias' %}">Competências</a>
+    <a href="{% url 'portfolio:formacoes' %}">Formação</a>
+    <a href="{% url 'artigos:lista' %}">Artigos</a>
+    <a href="{% url 'cursos' %}">Escola</a>
+    <a href="{% url 'portfolio:sobre' %}">Sobre</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}">Sair ({{ user.username }})</a>
+    {% else %}
+        <a href="{% url 'accounts:login' %}">Login</a>
+        <a href="{% url 'accounts:registo' %}">Registar</a>
+    {% endif %}
+</nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer><p>&copy; 2026 Portfólio</p></footer>
+</body>
+</html>

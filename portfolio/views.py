@@ -1,12 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, user_passes_test  # Importes necessários
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Tecnologia, Competencia, Formacao
 from .forms import TecnologiaForm, CompetenciaForm, FormacaoForm
+from .models import Tecnologia, Competencia, Formacao, MakingOf, TipoTecnologia
 
 def e_gestor(user):
-    """Retorna True se o utilizador estiver no grupo gestor-portfolio"""
-    return user.groups.filter(name='gestor-portfolio').exists()
+    return user.is_superuser or user.groups.filter(name='gestor-portfolio').exists()
+# --- LISTAGENS ---
 
+def tecnologias_view(request):
+    tecnologias = Tecnologia.objects.all()
+    return render(request, 'portfolio/tecnologias.html', {'tecnologias': tecnologias})
+
+def competencias_view(request):
+    competencias = Competencia.objects.all()
+    return render(request, 'portfolio/competencias.html', {'competencias': competencias})
+
+def formacoes_view(request):
+    formacoes = Formacao.objects.all()
+    return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes})
+
+# --- CRUD TECNOLOGIA ---
 
 @login_required
 @user_passes_test(e_gestor)
@@ -36,6 +50,7 @@ def apaga_tecnologia(request, id):
         return redirect('portfolio:tecnologias')
     return render(request, 'portfolio/confirm_delete.html', {'objeto': obj, 'tipo': 'Tecnologia'})
 
+# --- CRUD COMPETÊNCIA ---
 
 @login_required
 @user_passes_test(e_gestor)
@@ -76,3 +91,13 @@ def edita_formacao(request, id):
         form.save()
         return redirect('portfolio:formacoes')
     return render(request, 'portfolio/form_generico.html', {'form': form, 'titulo': 'Editar Formação'})
+
+    from .models import Tecnologia, Competencia, Formacao, MakingOf, TipoTecnologia
+
+def sobre_view(request):
+    tipos = TipoTecnologia.objects.prefetch_related('tecnologias').all()
+    makingof = MakingOf.objects.all().order_by('data')
+    return render(request, 'portfolio/sobre.html', {
+        'tipos': tipos,
+        'makingof': makingof,
+    })

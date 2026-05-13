@@ -1,0 +1,12 @@
+{% extends 'portfolio/layout.html' %}
+{% block content %}
+<h2>Confirmar eliminação</h2>
+<div class="card">
+    <p>Tens a certeza que queres apagar <strong>{{ objeto }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-delete">Sim, apagar</button>
+        <a href="javascript:history.back()" class="btn btn-edit">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

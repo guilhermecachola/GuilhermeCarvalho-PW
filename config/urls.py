@@ -1,16 +1,14 @@
-## ficheiro projects/urls.py
-
 from django.contrib import admin
-from django.urls import path, include              #     <- adicionar include 
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-## project/urls.py
-
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("escola/", include("escola.urls")), 
-    path("", include("escola.urls")),  
+    path("escola/", include("escola.urls")),
+    path("artigos/", include("artigos.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("", include("portfolio.urls", namespace="portfolio")),
 ]
 
 if settings.DEBUG:

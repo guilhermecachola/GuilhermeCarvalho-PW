@@ -1,0 +1,21 @@
+{% extends 'portfolio/layout.html' %}
+{% block content %}
+<h2>Formação</h2>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'portfolio:nova_formacao' %}" class="btn btn-primary">+ Nova Formação</a>
+{% endif %}
+
+{% for f in formacoes %}
+<div class="card">
+    <h3>{{ f.titulo }}</h3>
+    <p><strong>{{ f.instituicao }}</strong> — {{ f.data_inicio }} a {{ f.data_fim|default:"presente" }}</p>
+    <p>{{ f.descricao }}</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'portfolio:edita_formacao' f.id %}" class="btn btn-edit">Editar</a>
+    {% endif %}
+</div>
+{% empty %}
+<p style="color:#64748b">Ainda não há formações registadas.</p>
+{% endfor %}
+{% endblock %}
