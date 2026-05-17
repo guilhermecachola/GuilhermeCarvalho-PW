@@ -8,6 +8,7 @@ urlpatterns = [
     path("escola/", include("escola.urls")),
     path("artigos/", include("artigos.urls")),
     path("accounts/", include("accounts.urls")),
+    path("accounts/", include("allauth.urls")),
     path("", include("portfolio.urls", namespace="portfolio")),
 ]
 

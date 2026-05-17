@@ -9,7 +9,7 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
             return redirect('portfolio:home')
         else:
@@ -25,7 +25,7 @@ def registo_view(request):
         form = RegistoForm(request.POST)
         if form.is_valid():
             user = form.save()
-            grupo, _ = Group.objects.get_or_create(name='autores')
+            grupo, _ = Group.objects.get_or_create(name='bloggers')
             user.groups.add(grupo)
             login(request, user)
             return redirect('portfolio:home')

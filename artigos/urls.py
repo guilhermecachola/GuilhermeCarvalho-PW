@@ -5,6 +5,8 @@ app_name = 'artigos'
 
 urlpatterns = [
     path('', views.lista_artigos, name='lista'),
-    path('like/<int:artigo_id>/', views.like_artigo, name='like'),
-    path('comentar/<int:artigo_id>/', views.novo_comentario, name='comentar'),
+    path('<int:artigo_id>/', views.detalhe_artigo, name='detalhe'),
+    path('novo/', views.novo_artigo, name='novo'),
+    path('<int:artigo_id>/comentar/', views.novo_comentario, name='comentar'),
+    path('<int:artigo_id>/rating/', views.rating_artigo, name='rating'),
 ]
