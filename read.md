@@ -1,3 +1,0 @@
-admin
-
-adminpw2026
